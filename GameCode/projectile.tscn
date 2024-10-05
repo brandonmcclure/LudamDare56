@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs2htmnlf7vid"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_q6gs8"]
+[ext_resource type="Script" path="res://area_2d.gd" id="2_gedwd"]
+[ext_resource type="Texture2D" uid="uid://bj71db8jxe75p" path="res://art/projectile.png" id="3_cgpii"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d3k7e"]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_q6gs8")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_gedwd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("3_cgpii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_d3k7e")

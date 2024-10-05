@@ -2,10 +2,14 @@ extends Node
 
 var debug = true
 var is_invincible = true
+var is_attackphase = false
 
-@onready var hitbox = $Parallax2D/Area2D/hitbox
 @onready var animation_controller = $Parallax2D/AnimatedSprite2D
 
+# What does this guy need to do? 
+# He needs to add to a sense of scale. Make the tiny creatures relevent
+# He needs to be invincible most of the time, and when his mouth is open during an attack he can be clicked on
+# He needs to attack with his flippers from the lest or right
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animation_controller.frame = 0
@@ -14,18 +18,27 @@ func _ready() -> void:
 
 func start_play() -> void:
 	$anim_timer.start()
-func _physics_process(delta: float) -> void:
-	$debug_label.text = ""
+func _physics_process(_delta: float) -> void:
+	$Parallax2D/AnimatedSprite2D/debug_label.text = ""
 	if debug:
-		$debug_label.text += "big guy"
+		$Parallax2D/AnimatedSprite2D/debug_label.text += "big guy"
 
 
 func new_game() -> void:
-	$health_bar.value = 100
+	$Parallax2D/AnimatedSprite2D/health_bar .value = 100
 
-
+func start_attack() -> void:
+	pass
+	# start opening mouth
+	# is it coming from left or right?
+	# start attack animation for flipper on that side
+	# move the flipper across the board
 func _on_anim_timer_timeout() -> void:
 	if animation_controller.frame < 2:
 		animation_controller.frame = animation_controller.frame + 1
 	else:
 		animation_controller.frame = 0
+
+
+func _on_hitbox_on_hit() -> void:
+	pass # Replace with function body.
