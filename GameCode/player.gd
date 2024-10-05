@@ -101,8 +101,8 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				var b = projectile.instantiate()
-				add_child(b)
 				b.transform = $projectile_source.transform
+				add_child(b)
 	if Input.is_action_just_pressed("ui_menu") or Input.is_action_just_pressed("menu"):
 		print('esc')
 		if game_state == GAME_STATES.PAUSED:

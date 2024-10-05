@@ -27,6 +27,8 @@ position = Vector2(248, 160)
 z_index = 1
 z_as_relative = false
 position = Vector2(136, 24)
+collision_layer = 32
+collision_mask = 255
 
 [node name="map_collision" type="CollisionPolygon2D" parent="map_sb2d"]
 position = Vector2(-88, 112)
@@ -38,6 +40,7 @@ z_index = 1
 
 [node name="player" parent="." node_paths=PackedStringArray("UI", "start_point") instance=ExtResource("3_p36w8")]
 position = Vector2(288, 144)
+collision_mask = 36
 UI = NodePath("../HUD")
 start_point = NodePath("../StartPosition")
 

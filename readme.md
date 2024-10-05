@@ -44,6 +44,6 @@ Health bar for the big guy in the background. Started setting up a hitbox that w
 
 Ate some food, went on a walk and listened about pigments and light and pastel painting. Back at 3
 
-## 3p-
+## 3p-5p
 
-Thought it would be good to list out my todos before the jam is done. Implemented one of them (esc will now pause the game)
+Thought it would be good to list out my todos before the jam is done. Implemented one of them (esc will now pause the game). Got the collision layers sorted out most of the way. The big guy is still not detecting the projectiles. I am wondering if that is due to the z layering? Started a very bare bones audio project using LMMS to get some background music

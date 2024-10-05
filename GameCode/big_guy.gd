@@ -4,7 +4,7 @@ var debug = true
 var is_invincible = true
 var is_attackphase = false
 
-@onready var animation_controller = $Parallax2D/AnimatedSprite2D
+@onready var animation_controller = $AnimatedSprite2D
 
 # What does this guy need to do? 
 # He needs to add to a sense of scale. Make the tiny creatures relevent
@@ -19,13 +19,13 @@ func _ready() -> void:
 func start_play() -> void:
 	$anim_timer.start()
 func _physics_process(_delta: float) -> void:
-	$Parallax2D/AnimatedSprite2D/debug_label.text = ""
+	$AnimatedSprite2D/debug_label.text = ""
 	if debug:
-		$Parallax2D/AnimatedSprite2D/debug_label.text += "big guy"
+		$AnimatedSprite2D/debug_label.text += "big guy"
 
 
 func new_game() -> void:
-	$Parallax2D/AnimatedSprite2D/health_bar .value = 100
+	$AnimatedSprite2D/health_bar.value = 100
 
 func start_attack() -> void:
 	pass
@@ -40,5 +40,7 @@ func _on_anim_timer_timeout() -> void:
 		animation_controller.frame = 0
 
 
-func _on_hitbox_on_hit() -> void:
-	pass # Replace with function body.
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print('gehrh')
+	print(body)
+	$AnimatedSprite2D/health_bar.value -= 10

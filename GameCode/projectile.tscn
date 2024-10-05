@@ -10,6 +10,8 @@
 script = ExtResource("1_q6gs8")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 34
 script = ExtResource("2_gedwd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
