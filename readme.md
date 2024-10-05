@@ -37,3 +37,7 @@ It is all a more wonky than I would like. I don't really have a level yet, and t
 ### 7-10a
 
 Got a good nights rest. Woke up this morning thinking of Godot! Tinkered with the player movement. The player is now using CharacterBody2d and gravity is working as I would expect. I removed the mob spawning, and just manually placed one. I would like to have spawners that you need to find that will allow you to pick up X number of each mob. The mobs will follow the player better now. They will stop following if they are too far away or too close. They do colide with the player, so that will not work when you have a group of them following you. I want to start on the big guy health bar and attack
+
+### 10-12p
+
+Health bar for the big guy in the background. Started setting up a hitbox that will go down when you click.

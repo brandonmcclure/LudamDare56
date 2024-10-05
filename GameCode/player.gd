@@ -3,6 +3,12 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const CAMERA_MOVEMENT_SPEED : float = 10
+const CAMERA_ZOOM_SPEED : Vector2 = Vector2(0.6, 0.6)
+const CAMERA_ZOOM_DEFAULT : Vector2 = Vector2(1.0, 1.0)
+const CAMERA_ZOOM_MIN : Vector2 = Vector2(0.05, 0.05)
+const CAMERA_ZOOM_MAX : Vector2 = Vector2(2.0, 2.0)
+var zoom_int : int = 0
 var debug = true
 var current_zoom = Vector2(1,1)
 var air_jump = false
@@ -14,12 +20,30 @@ var was_wall_normal = Vector2.ZERO
 @onready var starting_position = global_position
 @onready var camera = $Camera2D
 
+		
 func _physics_process(delta: float) -> void:
+	
+	var distance_from_reference = camera.get_zoom().distance_to(Vector2(1,1))
+	if camera.get_zoom() > Vector2(1, 1):
+		zoom_int = int(distance_from_reference) -1
+	elif camera.get_zoom() < Vector2(1, 1):
+		zoom_int = -int(distance_from_reference) + 1
+	else:
+		zoom_int = 0
+	if (Input.is_action_just_pressed("zoom_in")):
+		if (camera.get_zoom() < CAMERA_ZOOM_MAX):
+			camera.set_zoom(camera.get_zoom() * (CAMERA_ZOOM_DEFAULT + CAMERA_ZOOM_SPEED))
+		
+	elif (Input.is_action_just_pressed("zoom_out")):
+		if (camera.get_zoom() > CAMERA_ZOOM_MIN):
+			camera.set_zoom(camera.get_zoom() / (CAMERA_ZOOM_DEFAULT + CAMERA_ZOOM_SPEED))
+			
 	$debug_label.text = ""
 	if debug:
 		$debug_label.text += "x: "+str($CollisionShape2D.global_position.x)+"\n"
 		$debug_label.text += "y: "+str($CollisionShape2D.global_position.y)+"\n"
-		$debug_label.text += "current zoom: "+str(current_zoom)+"\n"
+		$debug_label.text += "current zoom: "+str(camera.get_zoom())+"\n"
+		$debug_label.text += "current zoom int: "+str(zoom_int)+"\n"
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -35,17 +59,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	var zoom_factor := 0.5
-	if Input.is_action_just_released('zoom_out'):
-		current_zoom = -(current_zoom * zoom_factor)
-	elif Input.is_action_just_released('zoom_in'):
-		current_zoom = current_zoom * zoom_factor
+
+	
 		
-	if current_zoom < Vector2(0.5,0.5):
-		current_zoom = Vector2(0.5,0.5)
-	if current_zoom > Vector2(2,2):
-		current_zoom = Vector2(2,2)
-	camera.zoom = current_zoom
+	#elif (Input.is_action_just_pressed("Camera_ZoomReset")):
+		#camera.set_zoom(CAMERA_ZOOM_DEFAULT)
 	var input_axis = Input.get_axis("ui_left", "ui_right")
 	
 

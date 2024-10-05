@@ -51,8 +51,8 @@ animation = &"walk"
 shape = SubResource("CapsuleShape2D_vy1dd")
 
 [node name="debug_label" type="Label" parent="."]
-offset_left = 88.0
-offset_top = -114.0
+offset_left = 90.0
+offset_top = -110.0
 offset_right = 298.0
 offset_bottom = 118.0
 theme_override_font_sizes/font_size = 12

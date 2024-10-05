@@ -17,7 +17,7 @@ func _physics_process(_delta):
 		$debug_label.text += "distance_to_target: "+str(distance_to_target)+"\n"
 		
 	velocity = Vector2.ZERO
-	if  distance_to_target < 400 and distance_to_target > 50:
+	if  distance_to_target < 400 and distance_to_target > 75:
 		velocity = position.direction_to(target) * speed
 
 	move_and_slide()

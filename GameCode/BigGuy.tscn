@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://ct03wcfuwojgw"]
+
+[ext_resource type="Script" path="res://big_guy.gd" id="1_04cpm"]
+[ext_resource type="Texture2D" uid="uid://c7ph4a6sulxan" path="res://art/the_big_guy.png" id="2_h2slh"]
+[ext_resource type="Texture2D" uid="uid://dj43hfsi4g8ds" path="res://art/the_big_guy_mouth_opening.png" id="3_jmanl"]
+[ext_resource type="Texture2D" uid="uid://dk81sryvecwny" path="res://art/the_big_guy_mouth_open.png" id="4_sya5e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_on37m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h2slh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jmanl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sya5e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BigGuy" type="Node"]
+script = ExtResource("1_04cpm")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_as_relative = false
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Parallax2D"]
+position = Vector2(536, -80)
+sprite_frames = SubResource("SpriteFrames_on37m")
+
+[node name="Area2D" type="Area2D" parent="Parallax2D"]
+
+[node name="hitbox" type="CollisionPolygon2D" parent="Parallax2D/Area2D"]
+polygon = PackedVector2Array(520, -216, 384, -192, 336, -80, 336, 0, 680, -8, 680, -144, 592, -216)
+
+[node name="debug_label" type="Label" parent="."]
+offset_left = 536.0
+offset_top = -400.0
+offset_right = 746.0
+offset_bottom = -168.0
+
+[node name="health_bar" type="ProgressBar" parent="."]
+offset_left = 544.0
+offset_top = -432.0
+offset_right = 608.0
+offset_bottom = -405.0
