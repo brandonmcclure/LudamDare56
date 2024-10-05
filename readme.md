@@ -21,3 +21,7 @@ Brainstorm some ideas. We did some word association and listed out some games th
 - Siphonophorae
 
 I keep coming to the gameplay mechanic of a group of little things that can come together and separate for different needs. This could be top down strategy game, or a side platformer. 
+
+### 6-7p
+
+Worked on the swarming of the mobs. They will move toward the player and follow them as they move. I added some quick debug text that is attached to the player scene.
