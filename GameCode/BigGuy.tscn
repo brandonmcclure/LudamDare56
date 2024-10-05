@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct03wcfuwojgw"]
+[gd_scene load_steps=7 format=3 uid="uid://ct03wcfuwojgw"]
 
 [ext_resource type="Script" path="res://big_guy.gd" id="1_04cpm"]
 [ext_resource type="Texture2D" uid="uid://c7ph4a6sulxan" path="res://art/the_big_guy.png" id="2_h2slh"]
 [ext_resource type="Texture2D" uid="uid://dj43hfsi4g8ds" path="res://art/the_big_guy_mouth_opening.png" id="3_jmanl"]
 [ext_resource type="Texture2D" uid="uid://dk81sryvecwny" path="res://art/the_big_guy_mouth_open.png" id="4_sya5e"]
+[ext_resource type="Script" path="res://hitbox.gd" id="5_hmpgh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_on37m"]
 animations = [{
@@ -37,6 +38,7 @@ sprite_frames = SubResource("SpriteFrames_on37m")
 
 [node name="hitbox" type="CollisionPolygon2D" parent="Parallax2D/Area2D"]
 polygon = PackedVector2Array(520, -216, 384, -192, 336, -80, 336, 0, 680, -8, 680, -144, 592, -216)
+script = ExtResource("5_hmpgh")
 
 [node name="debug_label" type="Label" parent="."]
 offset_left = 536.0
@@ -49,3 +51,8 @@ offset_left = 544.0
 offset_top = -432.0
 offset_right = 608.0
 offset_bottom = -405.0
+
+[node name="anim_timer" type="Timer" parent="."]
+wait_time = 3.381
+
+[connection signal="timeout" from="anim_timer" to="." method="_on_anim_timer_timeout"]
