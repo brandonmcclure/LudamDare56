@@ -11,5 +11,6 @@ func _process(_delta: float) -> void:
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
 	print('in this guy')
 	if event is InputEventMouseButton:
-		self.global_position
-		print("Mouse Click/Unclick at: ", event.position)
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				print("Mouse Click/Unclick at: ", event.position)

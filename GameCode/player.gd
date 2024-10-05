@@ -23,8 +23,17 @@ var was_wall_normal = Vector2.ZERO
 
 @export var projectile : PackedScene
 @export var UI : CanvasLayer
+@export var start_point: Marker2D
 
-		
+signal new_game
+
+enum GAME_STATES {
+	MAIN_MENU,
+	PLAY,
+	PAUSED,
+	GAME_OVER
+}
+var game_state = GAME_STATES.MAIN_MENU
 func _physics_process(delta: float) -> void:
 	
 	var distance_from_reference = camera.get_zoom().distance_to(Vector2(1,1))
@@ -81,22 +90,61 @@ var screen_size # Size of the game window.
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	$Camera2D/resume_button.visible = false
+	$Camera2D/quit_button.visible = false
+	$Camera2D/restart_button.visible = false
 	hide()
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		var b = projectile.instantiate()
-		add_child(b)
-		b.transform = $projectile_source.transform
-
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				var b = projectile.instantiate()
+				add_child(b)
+				b.transform = $projectile_source.transform
+	if Input.is_action_just_pressed("ui_menu") or Input.is_action_just_pressed("menu"):
+		print('esc')
+		if game_state == GAME_STATES.PAUSED:
+			_unpause_game()
+		elif game_state == GAME_STATES.PLAY:
+			_pause_game()
 
 
 func update_animations(input_axis):
 	if input_axis != 0:
 		animated_sprite_2d.flip_h = (input_axis < 0)
 
-func start(pos):
-	position = pos
+func start():
+	position = start_point.position
 	show()
+	_unpause_game()
 	$CollisionShape2D.disabled = false
+
+func _pause_game() -> void:
+	game_state = GAME_STATES.PAUSED
+	get_tree().paused = true
+	$Camera2D/resume_button.visible = true
+	$Camera2D/quit_button.visible = true
+	$Camera2D/restart_button.visible = true
+func _unpause_game() -> void:
+	get_tree().paused = false
+	game_state = GAME_STATES.PLAY
+	$Camera2D/resume_button.visible = false
+	$Camera2D/quit_button.visible = false
+	$Camera2D/restart_button.visible = false
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_resume_button_pressed() -> void:
+	print('here')
+	_unpause_game()
+
+
+func _on_restart_button_pressed() -> void:
+	new_game.emit()
+
+
+func _on_new_game() -> void:
+	start()

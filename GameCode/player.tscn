@@ -61,5 +61,33 @@ theme_override_font_sizes/font_size = 12
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="resume_button" type="Button" parent="Camera2D"]
+process_mode = 3
+offset_left = -30.0
+offset_top = -34.0
+offset_right = 40.0
+offset_bottom = -3.0
+text = "Resume"
+
+[node name="quit_button" type="Button" parent="Camera2D"]
+process_mode = 3
+offset_left = -22.0
+offset_top = 40.0
+offset_right = 20.0
+offset_bottom = 71.0
+text = "Quit"
+
+[node name="restart_button" type="Button" parent="Camera2D"]
+offset_left = -28.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 35.0
+text = "Restart"
+
 [node name="projectile_source" type="Marker2D" parent="."]
 position = Vector2(2, -2)
+
+[connection signal="new_game" from="." to="." method="_on_new_game"]
+[connection signal="pressed" from="Camera2D/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Camera2D/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera2D/restart_button" to="." method="_on_restart_button_pressed"]

@@ -36,9 +36,10 @@ polygon = PackedVector2Array(-8, 49.2308, -8, 68.9231, 72, 68.9231, 104, 68.9231
 [node name="map_polygon" type="Polygon2D" parent="map_sb2d/map_collision"]
 z_index = 1
 
-[node name="player" parent="." node_paths=PackedStringArray("UI") instance=ExtResource("3_p36w8")]
+[node name="player" parent="." node_paths=PackedStringArray("UI", "start_point") instance=ExtResource("3_p36w8")]
 position = Vector2(288, 144)
 UI = NodePath("../HUD")
+start_point = NodePath("../StartPosition")
 
 [node name="Mob" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_8yt82")]
 position = Vector2(416, 168)

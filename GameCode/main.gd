@@ -23,7 +23,7 @@ func game_over():
 	$HUD.show_game_over()
 func new_game():
 	score = 0
-	$player.start($StartPosition.position)
+	$player.start()
 	get_tree().paused = false
 	$StartTimer.start()
 	$HUD.update_score(score)

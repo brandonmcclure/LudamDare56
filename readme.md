@@ -40,4 +40,10 @@ Got a good nights rest. Woke up this morning thinking of Godot! Tinkered with th
 
 ### 10-12p
 
-Health bar for the big guy in the background. Started setting up a hitbox that will go down when you click.
+Health bar for the big guy in the background. Started setting up a hitbox that will go down when you click.Did some more stuff, feeling the time crunch! 
+
+Ate some food, went on a walk and listened about pigments and light and pastel painting. Back at 3
+
+## 3p-
+
+Thought it would be good to list out my todos before the jam is done. Implemented one of them (esc will now pause the game)
