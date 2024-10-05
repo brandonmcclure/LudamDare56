@@ -1,13 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://2t7wlwxekldb"]
+[gd_scene load_steps=8 format=3 uid="uid://2t7wlwxekldb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0j836"]
 [ext_resource type="Texture2D" uid="uid://cdhdnpxooqx20" path="res://art/playerGrey_up1.png" id="2_ci0ok"]
 [ext_resource type="Texture2D" uid="uid://bsw673npu5wxb" path="res://art/playerGrey_up2.png" id="3_8jsy6"]
 [ext_resource type="Texture2D" uid="uid://b6smfvxeqnepg" path="res://art/playerGrey_walk1.png" id="4_dflrg"]
 [ext_resource type="Texture2D" uid="uid://b411sbjmtb3us" path="res://art/playerGrey_walk2.png" id="5_d2kp3"]
-[ext_resource type="Script" path="res://tc_area.gd" id="6_vxqk6"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vy1dd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04wm2"]
 animations = [{
@@ -34,8 +31,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_r0lxv"]
-radius = 39.2046
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vy1dd"]
+radius = 42.0
+height = 92.0
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -43,25 +41,20 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_0j836")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_vy1dd")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_04wm2")
 animation = &"walk"
 
 [node name="FollowPoint" type="Marker2D" parent="AnimatedSprite2D"]
 
-[node name="tc_area" type="CollisionShape2D" parent="."]
-scale = Vector2(2, 2)
-shape = SubResource("CircleShape2D_r0lxv")
-debug_color = Color(0.89665, 0.142772, 0.69363, 0.42)
-script = ExtResource("6_vxqk6")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vy1dd")
 
 [node name="debug_label" type="Label" parent="."]
 offset_left = 88.0
 offset_top = -114.0
 offset_right = 298.0
 offset_bottom = 118.0
+theme_override_font_sizes/font_size = 12
 
 [node name="Camera2D" type="Camera2D" parent="."]

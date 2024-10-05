@@ -65,3 +65,9 @@ animation = &"fly"
 rotation = 1.5708
 scale = Vector2(3.48, 2.62102)
 shape = SubResource("CapsuleShape2D_feadq")
+
+[node name="debug_label" type="Label" parent="."]
+offset_left = 88.0
+offset_top = -114.0
+offset_right = 298.0
+offset_bottom = 118.0

@@ -54,7 +54,6 @@ polygon = PackedVector2Array(-8, 49.2308, -8, 68.9231, 72, 68.9231, 104, 68.9231
 z_index = 1
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-visible = false
 z_as_relative = false
 scroll_scale = Vector2(0.1, 0.1)
 
@@ -64,6 +63,10 @@ sprite_frames = SubResource("SpriteFrames_hxwr3")
 
 [node name="player" parent="." instance=ExtResource("3_p36w8")]
 position = Vector2(288, 144)
+
+[node name="Mob" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_8yt82")]
+position = Vector2(416, 168)
+parent = NodePath("../player")
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
