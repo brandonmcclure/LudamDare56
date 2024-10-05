@@ -20,7 +20,6 @@ func new_game():
 	$player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
-	$HUD.show_message("Get Ready")
 	for i in range(1,5):
 		spawn_tc()
 func _on_score_timer_timeout():

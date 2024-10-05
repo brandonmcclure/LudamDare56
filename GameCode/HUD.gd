@@ -12,7 +12,7 @@ func show_game_over():
 	# Wait until the MessageTimer has counted down.
 	await $MessageTimer.timeout
 
-	$Message.text = "Dodge the\nCreeps!"
+	$Message.text = ""
 	$Message.show()
 	# Make a one-shot timer and wait for it to finish.
 	await get_tree().create_timer(1.0).timeout
@@ -28,6 +28,7 @@ func _on_message_timer_timeout():
 	$Message.hide()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Message.text = "Ludam Dare 56 - Tiny Creatures"
 	pass # Replace with function body.
 
 

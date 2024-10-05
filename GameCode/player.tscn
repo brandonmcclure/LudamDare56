@@ -48,8 +48,6 @@ shape = SubResource("CapsuleShape2D_vy1dd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_04wm2")
 animation = &"walk"
-frame = 1
-frame_progress = 0.599085
 
 [node name="FollowPoint" type="Marker2D" parent="AnimatedSprite2D"]
 
