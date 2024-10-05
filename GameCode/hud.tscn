@@ -12,7 +12,7 @@ offset_top = 9.0
 offset_right = 280.0
 offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("2_byddc")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "0"
 text_overrun_behavior = 3
 
@@ -30,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.554403, 1.48839)
 theme_override_fonts/font = ExtResource("2_byddc")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "Dodge the creeps!"
 autowrap_mode = 3
 
@@ -42,11 +42,12 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -88.0
 offset_top = -86.0
-offset_right = 89.0
+offset_right = 40.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_byddc")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "Start"
 
 [node name="MessageTimer" type="Timer" parent="."]

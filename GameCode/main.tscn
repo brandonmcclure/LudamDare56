@@ -72,7 +72,6 @@ position = Vector2(471, 5)
 rotation = 0.895478
 
 [node name="map_sb2d" type="StaticBody2D" parent="."]
-visible = false
 z_index = 1
 z_as_relative = false
 position = Vector2(136, 24)
@@ -86,7 +85,6 @@ polygon = PackedVector2Array(16, 48, 32, 64, 72, 64, 104, 72, 160, 64, 200, 72, 
 z_index = 1
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-visible = false
 z_as_relative = false
 scroll_scale = Vector2(0.1, 0.1)
 
