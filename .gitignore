@@ -5,3 +5,4 @@ GameCode/bin/*
 .venv/*
 **/*png~
 **/*.kra*
+**/*.bak
