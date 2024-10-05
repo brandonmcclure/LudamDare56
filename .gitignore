@@ -4,3 +4,4 @@
 GameCode/bin/*
 .venv/*
 **/*png~
+**/*.kra*

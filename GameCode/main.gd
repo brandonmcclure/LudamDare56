@@ -3,8 +3,11 @@ extends Node
 @export var mob_scene: PackedScene
 var score
 
+@onready var map_collision = $map_sb2d/map_collision
+@onready var map_polygon = $map_sb2d/map_collision/map_polygon
 # Called when the node enters the scene tree for the first time.
-#func _ready():
+func _ready():
+	map_polygon.polygon = map_collision.polygon
 #	new_game()
 
 

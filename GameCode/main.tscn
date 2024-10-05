@@ -24,9 +24,10 @@ one_shot = true
 [node name="HUD" parent="." instance=ExtResource("3_l1gmm")]
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(144, 104)
 
 [node name="player" parent="." instance=ExtResource("3_p36w8")]
+scale = Vector2(0.25, 0.25)
 
 [node name="MobPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_cg02n")
@@ -34,6 +35,14 @@ curve = SubResource("Curve2D_cg02n")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2(471, 5)
 rotation = 1.56519
+
+[node name="map_sb2d" type="StaticBody2D" parent="."]
+
+[node name="map_collision" type="CollisionPolygon2D" parent="map_sb2d"]
+position = Vector2(64, 80)
+polygon = PackedVector2Array(16, 48, 32, 64, 72, 64, 104, 72, 160, 64, 200, 72, 248, 80, 248, 144, -40, 144, -120, 96, -120, 48)
+
+[node name="map_polygon" type="Polygon2D" parent="map_sb2d/map_collision"]
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
