@@ -30,8 +30,3 @@ func _on_message_timer_timeout():
 func _ready():
 	$Message.text = "Ludam Dare 56 - Tiny Creatures"
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

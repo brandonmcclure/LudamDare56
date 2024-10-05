@@ -1,8 +1,4 @@
 extends CharacterBody2D
-
-signal hit
-
-@export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 
 # Called when the node enters the scene tree for the first time.
@@ -11,48 +7,45 @@ func _ready():
 	hide()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var debug_label = get_node('debug_label')
-	var n = get_node('tc_area').get_refs_in_area()
-	var debug_message = "there are "+str(n)+" tc near you"
-	debug_label.text = debug_message
-	var velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
+var current_zoom = Vector2(1,1)
+var air_jump = false
+var just_wall_jumped = false
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var was_wall_normal = Vector2.ZERO
 
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play()
-	else:
-		$AnimatedSprite2D.stop()
-		
-	if velocity.x != 0:
-		$AnimatedSprite2D.animation = "walk"
-		$AnimatedSprite2D.flip_v = false
-		# See the note below about boolean assignment.
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-	elif velocity.y != 0:
-		$AnimatedSprite2D.animation = "up"
-		$AnimatedSprite2D.flip_v = velocity.y > 0
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var starting_position = global_position
+@onready var camera = $Camera2D
+
+func _physics_process(_delta):
+	var input_axis = Input.get_axis("ui_left", "ui_right")
 	
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	# Controls how much we increase or decrease the `_zoom_level` on every turn of the scroll wheel.
+	var zoom_factor := 0.5
+	if Input.is_action_just_released('zoom_out'):
+		current_zoom = current_zoom * zoom_factor
+		
+	elif Input.is_action_just_released('zoom_in'):
+		current_zoom = -(current_zoom * zoom_factor)
+		
+	if current_zoom <= Vector2.ZERO:
+		current_zoom = Vector2(0.1,0.1)
+	if current_zoom > Vector2(1.5,1.5):
+			current_zoom = Vector2(1.5,1.5)
+	camera.zoom = current_zoom
+	move_and_slide()
+	update_animations(input_axis)
+	$debug_label.text = ""
+	$debug_label.text += "x: "+str($CollisionShape2D.global_position.x)+"\n"
+	$debug_label.text += "y: "+str($CollisionShape2D.global_position.y)+"\n"
+
+
+
+func update_animations(input_axis):
+	if input_axis != 0:
+		animated_sprite_2d.flip_h = (input_axis < 0)
 
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
-
-func _on_body_entered(body):
-	print('body collision')
-	#hide() # Player disappears after being hit.
-	#hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
-	#CollisionShape2D.set_deferred("disabled", true)
