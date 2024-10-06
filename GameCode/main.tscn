@@ -82,6 +82,7 @@ use_kinematic_bodies = true
 stream = ExtResource("6_vgrxb")
 volume_db = -32.925
 autoplay = true
+bus = &"Music"
 
 [connection signal="new_game_signal" from="." to="." method="_on_new_game_signal"]
 [connection signal="new_game_signal" from="." to="TinyCreatureSpawner" method="_on_main_new_game_signal"]

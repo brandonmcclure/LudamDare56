@@ -70,5 +70,6 @@ gizmo_extents = 133.0
 [node name="audio_jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_lpblo")
 volume_db = -1.285
+bus = &"Sound Effects"
 
 [connection signal="new_game" from="." to="." method="_on_new_game"]

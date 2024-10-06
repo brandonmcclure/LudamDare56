@@ -22,6 +22,8 @@ func update_score(score):
 func _on_start_button_pressed():
 	$StartButton.hide()
 	$Message.hide()
+	$VolumeSlider.hide()
+	$VolumeLabel.hide()
 	$QuitButton.hide()
 	get_tree().paused = false
 	start_game.emit()
@@ -38,6 +40,8 @@ func _on_big_guy_on_dead() -> void:
 	$Message.text = "You defeated the big creature!"
 	$Message.show()
 	$QuitButton.show()
+	$VolumeSlider.show()
+	$VolumeLabel.show()
 	$StartButton.show()
 
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://1uke5wj3cffe"]
+[gd_scene load_steps=4 format=3 uid="uid://1uke5wj3cffe"]
 
 [ext_resource type="Script" path="res://HUD.gd" id="1_lfi3n"]
 [ext_resource type="FontFile" uid="uid://cc1y4ohudor8c" path="res://fonts/Xolonium-Regular.ttf" id="2_byddc"]
+[ext_resource type="Script" path="res://volume_slider.gd" id="3_0nfc3"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_lfi3n")
@@ -41,9 +42,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -112.0
-offset_top = -116.0
+offset_top = -132.0
 offset_right = 39.0
-offset_bottom = -76.0
+offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_byddc")
@@ -55,11 +56,29 @@ text = "Start Game
 
 [node name="QuitButton" type="Button" parent="."]
 offset_left = 96.0
-offset_top = 112.0
+offset_top = 104.0
 offset_right = 154.0
-offset_bottom = 154.0
+offset_bottom = 146.0
 theme_override_font_sizes/font_size = 24
 text = "Quit
+"
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+offset_left = 96.0
+offset_top = 88.0
+offset_right = 200.0
+offset_bottom = 104.0
+max_value = 1.0
+step = 0.05
+script = ExtResource("3_0nfc3")
+
+[node name="VolumeLabel" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 88.0
+offset_right = 88.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 10
+text = "Volume:
 "
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
