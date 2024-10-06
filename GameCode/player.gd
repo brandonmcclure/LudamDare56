@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -500.0
 const CAMERA_MOVEMENT_SPEED : float = 10
 const CAMERA_ZOOM_SPEED : Vector2 = Vector2(0.6, 0.6)
 const CAMERA_ZOOM_DEFAULT : Vector2 = Vector2(1.0, 1.0)
@@ -102,10 +102,9 @@ func _input(event: InputEvent) -> void:
 			if event.pressed:
 				var b = projectile.instantiate()
 				var mouse_position = get_global_mouse_position()
-				var global_position = $projectile_source.get_global_transform().origin
-				var direction = (mouse_position - global_position).normalized()
-				print(global_position)
-				b.position = global_position
+				var _global_position = $projectile_source.get_global_transform().origin
+				var direction = (mouse_position - _global_position).normalized()
+				b.position = _global_position
 				b.rotation = direction.angle()
 				owner.add_child(b)
 				
