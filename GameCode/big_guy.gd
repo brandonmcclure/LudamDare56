@@ -41,5 +41,5 @@ func _on_anim_timer_timeout() -> void:
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
-	print('attack!')
+	$audio_on_hit.play()
 	$AnimatedSprite2D/health_bar.value -= 10

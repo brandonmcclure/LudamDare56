@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2t7wlwxekldb"]
+[gd_scene load_steps=10 format=3 uid="uid://2t7wlwxekldb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0j836"]
 [ext_resource type="PackedScene" uid="uid://cs2htmnlf7vid" path="res://projectile.tscn" id="2_8st2p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bsw673npu5wxb" path="res://art/playerGrey_up2.png" id="3_8jsy6"]
 [ext_resource type="Texture2D" uid="uid://b6smfvxeqnepg" path="res://art/playerGrey_walk1.png" id="4_dflrg"]
 [ext_resource type="Texture2D" uid="uid://b411sbjmtb3us" path="res://art/playerGrey_walk2.png" id="5_d2kp3"]
+[ext_resource type="AudioStream" uid="uid://dsb2r8ql1oahp" path="res://music/1_Jump.ogg" id="7_lpblo"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04wm2"]
 animations = [{
@@ -88,6 +89,10 @@ text = "Restart"
 [node name="projectile_source" type="Marker2D" parent="."]
 position = Vector2(4, -4)
 gizmo_extents = 133.0
+
+[node name="audio_jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_lpblo")
+volume_db = -1.285
 
 [connection signal="new_game" from="." to="." method="_on_new_game"]
 [connection signal="pressed" from="Camera2D/resume_button" to="." method="_on_resume_button_pressed"]

@@ -64,7 +64,7 @@ parent = NodePath("../player")
 
 [node name="background_music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_vgrxb")
-volume_db = -43.581
+volume_db = -32.925
 autoplay = true
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
