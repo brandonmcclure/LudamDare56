@@ -40,6 +40,7 @@ polygon = PackedVector2Array(-8, 49.2308, -8, 68.9231, 72, 68.9231, 104, 68.9231
 z_index = 1
 
 [node name="player" parent="." node_paths=PackedStringArray("UI", "start_point") instance=ExtResource("3_p36w8")]
+z_index = 2
 position = Vector2(288, 144)
 collision_mask = 36
 UI = NodePath("../HUD")
@@ -51,6 +52,7 @@ parent = NodePath("../player")
 
 [node name="background_music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_vgrxb")
+volume_db = -43.581
 autoplay = true
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

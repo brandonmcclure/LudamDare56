@@ -7,6 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_d3k7e"]
 
 [node name="Projectile" type="Node2D"]
+z_index = 1
 script = ExtResource("1_q6gs8")
 
 [node name="Area2D" type="Area2D" parent="."]

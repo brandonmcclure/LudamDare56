@@ -42,12 +42,16 @@ position = Vector2(536, -80)
 sprite_frames = SubResource("SpriteFrames_on37m")
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+z_index = 1
+z_as_relative = false
 position = Vector2(-536, 80)
 collision_layer = 2
 collision_mask = 8
 input_pickable = false
 
 [node name="hitbox" type="CollisionPolygon2D" parent="AnimatedSprite2D/Area2D"]
+z_index = 1
+z_as_relative = false
 polygon = PackedVector2Array(520, -216, 384, -192, 336, -80, 336, 0, 680, -8, 680, -144, 592, -216)
 
 [node name="debug_label" type="Label" parent="AnimatedSprite2D"]
@@ -67,7 +71,7 @@ limit_begin = Vector2(-1000, -1000)
 limit_end = Vector2(1000, 1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(320, -312)
+position = Vector2(320, -313)
 scale = Vector2(2.76, 3.21067)
 texture = ExtResource("6_qudyf")
 

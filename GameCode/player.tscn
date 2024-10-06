@@ -86,7 +86,7 @@ offset_bottom = 35.0
 text = "Restart"
 
 [node name="projectile_source" type="Marker2D" parent="."]
-position = Vector2(2, -2)
+position = Vector2(4, -4)
 
 [connection signal="new_game" from="." to="." method="_on_new_game"]
 [connection signal="pressed" from="Camera2D/resume_button" to="." method="_on_resume_button_pressed"]
