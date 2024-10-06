@@ -5,8 +5,6 @@ class_name Game
 static var ref : Game
 var score
 
-@onready var map_collision = $map_sb2d/map_collision
-@onready var map_polygon = $map_sb2d/map_collision/map_polygon
 func _enter_tree() -> void:
 	if ref:
 		queue_free()
@@ -14,7 +12,7 @@ func _enter_tree() -> void:
 	ref = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	map_polygon.polygon = map_collision.polygon
+	pass
 #	new_game()
 
 

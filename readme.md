@@ -50,8 +50,9 @@ Thought it would be good to list out my todos before the jam is done. Implemente
 
 ## 6-10
 
-Started watching james and the giant peach. trying to get the big guy collision working. Failed at that but spent some time building out a tile set and level editor. I did not merge that work from my laptop to my desktop, which I started working on in the morning, luckily git will help me with that! I did spend sometime after 10 getting my forgejo runners using a base image that contains git-lfs so that my CI will work again with my new runner vms.
+Started watching james and the giant peach. trying to get the big guy collision working. Switched to a tile set for the ground. Collision with the big guy is still not working. That is frustrating. Failed at that but spent some time building out a tile set and level editor. I did not merge that work from my laptop to my desktop, which I started working on in the morning, luckily git will help me with that! I did spend sometime after 10 getting my forgejo runners using a base image that contains git-lfs so that my CI will work again with my new runner vms.
 
 ## 8a-
 
 Started with a rested mind and got the big guy collision working... I was using on_body_entered and should have used on_area_entered, so much time was spent on this. I am happy it is working now. Also, I got the projectile rotation/spawning working with some help from my local Mistral7B LLM. It was using the local coordinates as global ones and just had to translate that and it is working again.
+
