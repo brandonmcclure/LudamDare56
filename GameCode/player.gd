@@ -26,6 +26,8 @@ var was_wall_normal = Vector2.ZERO
 @export var start_point: Marker2D
 
 signal new_game
+signal pause_game
+signal unpause_game
 
 enum GAME_STATES {
 	MAIN_MENU,
@@ -35,7 +37,8 @@ enum GAME_STATES {
 }
 var game_state = GAME_STATES.MAIN_MENU
 func _physics_process(delta: float) -> void:
-	
+	if game_state == GAME_STATES.PAUSED:
+		return
 	var distance_from_reference = camera.get_zoom().distance_to(Vector2(1,1))
 	if camera.get_zoom() > Vector2(1, 1):
 		zoom_int = int(distance_from_reference) -1
@@ -107,11 +110,15 @@ func _input(event: InputEvent) -> void:
 				owner.add_child(b)
 				
 	if Input.is_action_just_pressed("ui_menu") or Input.is_action_just_pressed("menu"):
-		print('esc')
 		if game_state == GAME_STATES.PAUSED:
-			_unpause_game()
+			print('going to play')
+			game_state = GAME_STATES.PLAY
+			unpause_game.emit
 		elif game_state == GAME_STATES.PLAY:
-			_pause_game()
+			print('going to pause')
+			game_state = GAME_STATES.PAUSED
+			pause_game.emit
+			
 
 
 func update_animations(input_axis):
@@ -121,24 +128,14 @@ func update_animations(input_axis):
 func start():
 	position = start_point.position
 	show()
-	_unpause_game()
-	$CollisionShape2D.disabled = false
-
-func _pause_game() -> void:
-	game_state = GAME_STATES.PAUSED
-	get_tree().paused = true
-func _unpause_game() -> void:
-	get_tree().paused = false
 	game_state = GAME_STATES.PLAY
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
-
-
-func _on_resume_button_pressed() -> void:
-	print('here')
-	_unpause_game()
-
+	unpause_game.emit()
+	$CollisionShape2D.disabled = false
 
 
 func _on_new_game() -> void:
 	start()
+
+
+func _on_main_main_menu() -> void:
+	pass # Replace with function body.

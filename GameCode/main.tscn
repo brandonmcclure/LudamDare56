@@ -84,6 +84,8 @@ volume_db = -32.925
 autoplay = true
 bus = &"Music"
 
+[connection signal="main_menu" from="." to="HUD" method="_on_main_main_menu"]
+[connection signal="main_menu" from="." to="player" method="_on_main_main_menu"]
 [connection signal="new_game_signal" from="." to="." method="_on_new_game_signal"]
 [connection signal="new_game_signal" from="." to="TinyCreatureSpawner" method="_on_main_new_game_signal"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
@@ -91,3 +93,7 @@ bus = &"Music"
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="start_game" from="HUD" to="BigGuy" method="_on_hud_start_game"]
 [connection signal="on_dead" from="BigGuy" to="HUD" method="_on_big_guy_on_dead"]
+[connection signal="pause_game" from="player" to="HUD" method="_on_player_pause_game"]
+[connection signal="pause_game" from="player" to="BigGuy" method="_on_player_pause_game"]
+[connection signal="unpause_game" from="player" to="HUD" method="_on_player_unpause_game"]
+[connection signal="unpause_game" from="player" to="BigGuy" method="_on_player_unpause_game"]

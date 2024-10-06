@@ -6,6 +6,7 @@ static var ref : Game
 var score
 var bg_music := AudioStreamPlayer.new()
 signal new_game_signal
+signal main_menu
 func _enter_tree() -> void:
 	if ref:
 		queue_free()
@@ -13,7 +14,7 @@ func _enter_tree() -> void:
 	ref = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	new_game()
+	main_menu.emit()
 
 
 func game_over():
