@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://2t7wlwxekldb"]
+[gd_scene load_steps=9 format=3 uid="uid://2t7wlwxekldb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0j836"]
+[ext_resource type="PackedScene" uid="uid://cs2htmnlf7vid" path="res://projectile.tscn" id="2_8st2p"]
 [ext_resource type="Texture2D" uid="uid://cdhdnpxooqx20" path="res://art/playerGrey_up1.png" id="2_ci0ok"]
 [ext_resource type="Texture2D" uid="uid://bsw673npu5wxb" path="res://art/playerGrey_up2.png" id="3_8jsy6"]
 [ext_resource type="Texture2D" uid="uid://b6smfvxeqnepg" path="res://art/playerGrey_walk1.png" id="4_dflrg"]
 [ext_resource type="Texture2D" uid="uid://b411sbjmtb3us" path="res://art/playerGrey_walk2.png" id="5_d2kp3"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vy1dd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04wm2"]
 animations = [{
@@ -33,18 +32,63 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="player" type="Area2D"]
-scale = Vector2(0.5, 0.5)
-script = ExtResource("1_0j836")
-metadata/_edit_group_ = true
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vy1dd"]
+radius = 42.0
+height = 92.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_vy1dd")
+[node name="player" type="CharacterBody2D"]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+collision_mask = 37
+script = ExtResource("1_0j836")
+projectile = ExtResource("2_8st2p")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_04wm2")
 animation = &"walk"
-frame = 1
-frame_progress = 0.599085
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="FollowPoint" type="Marker2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vy1dd")
+
+[node name="debug_label" type="Label" parent="."]
+offset_left = 90.0
+offset_top = -110.0
+offset_right = 298.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 12
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="resume_button" type="Button" parent="Camera2D"]
+process_mode = 3
+offset_left = -30.0
+offset_top = -34.0
+offset_right = 40.0
+offset_bottom = -3.0
+text = "Resume"
+
+[node name="quit_button" type="Button" parent="Camera2D"]
+process_mode = 3
+offset_left = -22.0
+offset_top = 40.0
+offset_right = 20.0
+offset_bottom = 71.0
+text = "Quit"
+
+[node name="restart_button" type="Button" parent="Camera2D"]
+offset_left = -28.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 35.0
+text = "Restart"
+
+[node name="projectile_source" type="Marker2D" parent="."]
+position = Vector2(4, -4)
+
+[connection signal="new_game" from="." to="." method="_on_new_game"]
+[connection signal="pressed" from="Camera2D/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Camera2D/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera2D/restart_button" to="." method="_on_restart_button_pressed"]

@@ -1,22 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl2utvscqsb6d"]
+[gd_scene load_steps=7 format=3 uid="uid://dl2utvscqsb6d"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_acp56"]
 [ext_resource type="PackedScene" uid="uid://b244yopiiy3u8" path="res://mob.tscn" id="2_8yt82"]
 [ext_resource type="PackedScene" uid="uid://1uke5wj3cffe" path="res://hud.tscn" id="3_l1gmm"]
 [ext_resource type="PackedScene" uid="uid://2t7wlwxekldb" path="res://player.tscn" id="3_p36w8"]
-
-[sub_resource type="Curve2D" id="Curve2D_cg02n"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 471, 5, 0, 0, 0, 0, 475, 718, 0, 0, 0, 0, 2, 714, 0, 0, 0, 0, -6, 5, 0, 0, 0, 0, 471, 5)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://ct03wcfuwojgw" path="res://BigGuy.tscn" id="5_60ejo"]
+[ext_resource type="AudioStream" uid="uid://y50rlq4cp0yn" path="res://music/background.ogg" id="6_vgrxb"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_acp56")
 mob_scene = ExtResource("2_8yt82")
-
-[node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -27,19 +20,41 @@ one_shot = true
 [node name="HUD" parent="." instance=ExtResource("3_l1gmm")]
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(248, 160)
 
-[node name="player" parent="." instance=ExtResource("3_p36w8")]
+[node name="BigGuy" parent="." instance=ExtResource("5_60ejo")]
 
-[node name="MobPath" type="Path2D" parent="."]
-curve = SubResource("Curve2D_cg02n")
+[node name="map_sb2d" type="StaticBody2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(136, 24)
+collision_layer = 32
+collision_mask = 255
 
-[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-position = Vector2(471, 5)
-rotation = 1.56519
+[node name="map_collision" type="CollisionPolygon2D" parent="map_sb2d"]
+position = Vector2(-88, 112)
+scale = Vector2(1, 0.8125)
+polygon = PackedVector2Array(-8, 49.2308, -8, 68.9231, 72, 68.9231, 104, 68.9231, 160, 88.6154, 224, 68.9231, 2080, 88.6154, 2064, 128, -40, 144, -1344, 137.846, -1344, 59.0769)
 
-[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[node name="map_polygon" type="Polygon2D" parent="map_sb2d/map_collision"]
+z_index = 1
+
+[node name="player" parent="." node_paths=PackedStringArray("UI", "start_point") instance=ExtResource("3_p36w8")]
+z_index = 2
+position = Vector2(288, 144)
+collision_mask = 36
+UI = NodePath("../HUD")
+start_point = NodePath("../StartPosition")
+
+[node name="Mob" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_8yt82")]
+position = Vector2(416, 168)
+parent = NodePath("../player")
+
+[node name="background_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vgrxb")
+volume_db = -43.581
+autoplay = true
+
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
-[connection signal="hit" from="player" to="." method="_on_player_hit"]

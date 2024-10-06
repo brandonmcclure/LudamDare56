@@ -1,4 +1,4 @@
-FROM ghcr.io/brandonmcclure/godot-docker/godot:4.2.1 AS builder
+FROM ghcr.io/brandonmcclure/godot-docker/godot:4.3 AS builder
 WORKDIR /app
 COPY GameCode /app
 RUN sh /app/buildscript.sh

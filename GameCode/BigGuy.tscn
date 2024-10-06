@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://ct03wcfuwojgw"]
+
+[ext_resource type="Script" path="res://big_guy.gd" id="1_04cpm"]
+[ext_resource type="Texture2D" uid="uid://c7ph4a6sulxan" path="res://art/the_big_guy.png" id="2_h2slh"]
+[ext_resource type="Texture2D" uid="uid://dj43hfsi4g8ds" path="res://art/the_big_guy_mouth_opening.png" id="3_jmanl"]
+[ext_resource type="Texture2D" uid="uid://dk81sryvecwny" path="res://art/the_big_guy_mouth_open.png" id="4_sya5e"]
+[ext_resource type="Texture2D" uid="uid://civm2u2f3dfhg" path="res://art/background.png" id="6_qudyf"]
+[ext_resource type="Texture2D" uid="uid://cs02n7py0qhyi" path="res://art/the_big_guy_flipper.png" id="7_sivq7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_on37m"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h2slh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jmanl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sya5e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pep7o"]
+radius = 39.5604
+height = 703.495
+
+[node name="BigGuy" type="Node2D"]
+script = ExtResource("1_04cpm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(536, -80)
+sprite_frames = SubResource("SpriteFrames_on37m")
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+z_index = 1
+z_as_relative = false
+position = Vector2(-536, 80)
+collision_layer = 2
+collision_mask = 8
+input_pickable = false
+
+[node name="hitbox" type="CollisionPolygon2D" parent="AnimatedSprite2D/Area2D"]
+z_index = 1
+z_as_relative = false
+polygon = PackedVector2Array(520, -216, 384, -192, 336, -80, 336, 0, 680, -8, 680, -144, 592, -216)
+
+[node name="debug_label" type="Label" parent="AnimatedSprite2D"]
+offset_top = -320.0
+offset_right = 210.0
+offset_bottom = -88.0
+
+[node name="health_bar" type="ProgressBar" parent="AnimatedSprite2D"]
+offset_left = 8.0
+offset_top = -352.0
+offset_right = 72.0
+offset_bottom = -325.0
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.1)
+limit_begin = Vector2(-1000, -1000)
+limit_end = Vector2(1000, 1000)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(320, -313)
+scale = Vector2(2.76, 3.21067)
+texture = ExtResource("6_qudyf")
+
+[node name="anim_timer" type="Timer" parent="."]
+wait_time = 3.381
+
+[node name="left_flipper" type="Area2D" parent="."]
+z_index = 1
+z_as_relative = false
+collision_layer = 4
+collision_mask = 17
+
+[node name="left_flipper" type="Sprite2D" parent="left_flipper"]
+position = Vector2(-1160, 248)
+scale = Vector2(0.606667, 1.18267)
+texture = ExtResource("7_sivq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_flipper"]
+position = Vector2(-1192, 256)
+scale = Vector2(0.606667, 1.18267)
+shape = SubResource("CapsuleShape2D_pep7o")
+
+[node name="right_flipper" type="Area2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(2984, 8)
+collision_layer = 4
+collision_mask = 17
+
+[node name="left_flipper" type="Sprite2D" parent="right_flipper"]
+position = Vector2(-1160, 248)
+scale = Vector2(0.606667, 1.18267)
+texture = ExtResource("7_sivq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_flipper"]
+position = Vector2(-1192, 256)
+scale = Vector2(0.606667, 1.18267)
+shape = SubResource("CapsuleShape2D_pep7o")
+
+[connection signal="body_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="anim_timer" to="." method="_on_anim_timer_timeout"]
