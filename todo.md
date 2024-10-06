@@ -1,4 +1,3 @@
-background music
 sound effects for jump, attack, takeing damage
 projectiles intercept with big guy hitbox and damage
 at 0 big guy health, game over, you win

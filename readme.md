@@ -48,6 +48,6 @@ Ate some food, went on a walk and listened about pigments and light and pastel p
 
 Thought it would be good to list out my todos before the jam is done. Implemented one of them (esc will now pause the game). Got the collision layers sorted out most of the way. The big guy is still not detecting the projectiles. I am wondering if that is due to the z layering? Started a very bare bones audio project using LMMS to get some background music
 
-## 6-
+## 6-9
 
-Started watching james and the giant peach. trying to get the big guy collision working. 
+Started watching james and the giant peach. trying to get the big guy collision working. Switched to a tile set for the ground. Collision with the big guy is still not working. That is frustrating
