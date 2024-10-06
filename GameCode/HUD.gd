@@ -22,6 +22,8 @@ func update_score(score):
 func _on_start_button_pressed():
 	$StartButton.hide()
 	$Message.hide()
+	$QuitButton.hide()
+	get_tree().paused = false
 	start_game.emit()
 
 func _on_message_timer_timeout():
@@ -30,3 +32,14 @@ func _on_message_timer_timeout():
 func _ready():
 	$Message.text = "Ludam Dare 56 - Tiny Creatures"
 	pass # Replace with function body.
+
+
+func _on_big_guy_on_dead() -> void:
+	$Message.text = "You defeated the big creature!"
+	$Message.show()
+	$QuitButton.show()
+	$StartButton.show()
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

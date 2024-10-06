@@ -3,7 +3,7 @@ extends Node
 var debug = true
 var is_invincible = true
 var is_attackphase = false
-
+signal on_dead
 @onready var animation_controller = $AnimatedSprite2D
 
 # What does this guy need to do? 
@@ -13,11 +13,8 @@ var is_attackphase = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animation_controller.frame = 0
-	start_play()
 	new_game()
-
-func start_play() -> void:
-	$anim_timer.start()
+	
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D/debug_label.text = ""
 	if debug:
@@ -25,6 +22,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func new_game() -> void:
+	$anim_timer.start()
 	$AnimatedSprite2D/health_bar.value = 100
 
 func start_attack() -> void:
@@ -43,3 +41,9 @@ func _on_anim_timer_timeout() -> void:
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	$audio_on_hit.play()
 	$AnimatedSprite2D/health_bar.value -= 10
+	if $AnimatedSprite2D/health_bar.value <= 0:
+		on_dead.emit()
+
+
+func _on_hud_start_game() -> void:
+	new_game()

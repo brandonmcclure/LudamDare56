@@ -91,9 +91,6 @@ var screen_size # Size of the game window.
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	$Camera2D/resume_button.visible = false
-	$Camera2D/quit_button.visible = false
-	$Camera2D/restart_button.visible = false
 	hide()
 
 
@@ -130,15 +127,9 @@ func start():
 func _pause_game() -> void:
 	game_state = GAME_STATES.PAUSED
 	get_tree().paused = true
-	$Camera2D/resume_button.visible = true
-	$Camera2D/quit_button.visible = true
-	$Camera2D/restart_button.visible = true
 func _unpause_game() -> void:
 	get_tree().paused = false
 	game_state = GAME_STATES.PLAY
-	$Camera2D/resume_button.visible = false
-	$Camera2D/quit_button.visible = false
-	$Camera2D/restart_button.visible = false
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -147,9 +138,6 @@ func _on_resume_button_pressed() -> void:
 	print('here')
 	_unpause_game()
 
-
-func _on_restart_button_pressed() -> void:
-	new_game.emit()
 
 
 func _on_new_game() -> void:

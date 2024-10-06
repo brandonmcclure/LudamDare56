@@ -64,7 +64,6 @@ position = Vector2(216, 600)
 gizmo_extents = 399.5
 
 [node name="BigGuy" parent="." instance=ExtResource("5_60ejo")]
-visible = false
 
 [node name="player" parent="." node_paths=PackedStringArray("UI", "start_point") instance=ExtResource("3_p36w8")]
 z_index = 2
@@ -89,3 +88,5 @@ autoplay = true
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="start_game" from="HUD" to="BigGuy" method="_on_hud_start_game"]
+[connection signal="on_dead" from="BigGuy" to="HUD" method="_on_big_guy_on_dead"]
