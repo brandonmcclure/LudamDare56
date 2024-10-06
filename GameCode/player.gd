@@ -3,14 +3,14 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -500.0
 const CAMERA_MOVEMENT_SPEED : float = 10
 const CAMERA_ZOOM_SPEED : Vector2 = Vector2(0.6, 0.6)
 const CAMERA_ZOOM_DEFAULT : Vector2 = Vector2(1.0, 1.0)
 const CAMERA_ZOOM_MIN : Vector2 = Vector2(0.05, 0.05)
 const CAMERA_ZOOM_MAX : Vector2 = Vector2(2.0, 2.0)
 var zoom_int : int = 0
-var debug = true
+var debug = false
 var current_zoom = Vector2(1,1)
 var air_jump = false
 var just_wall_jumped = false
@@ -26,6 +26,8 @@ var was_wall_normal = Vector2.ZERO
 @export var start_point: Marker2D
 
 signal new_game
+signal pause_game
+signal unpause_game
 
 enum GAME_STATES {
 	MAIN_MENU,
@@ -35,7 +37,8 @@ enum GAME_STATES {
 }
 var game_state = GAME_STATES.MAIN_MENU
 func _physics_process(delta: float) -> void:
-	
+	if game_state == GAME_STATES.PAUSED:
+		return
 	var distance_from_reference = camera.get_zoom().distance_to(Vector2(1,1))
 	if camera.get_zoom() > Vector2(1, 1):
 		zoom_int = int(distance_from_reference) -1
@@ -65,6 +68,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		$audio_jump.play()
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -90,9 +94,6 @@ var screen_size # Size of the game window.
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	$Camera2D/resume_button.visible = false
-	$Camera2D/quit_button.visible = false
-	$Camera2D/restart_button.visible = false
 	hide()
 
 
@@ -101,15 +102,23 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				var b = projectile.instantiate()
-				b.transform = $projectile_source.transform
+				var mouse_position = get_global_mouse_position()
+				var _global_position = $projectile_source.get_global_transform().origin
+				var direction = (mouse_position - _global_position).normalized()
+				b.position = _global_position
+				b.rotation = direction.angle()
 				owner.add_child(b)
 				
 	if Input.is_action_just_pressed("ui_menu") or Input.is_action_just_pressed("menu"):
-		print('esc')
 		if game_state == GAME_STATES.PAUSED:
-			_unpause_game()
+			print('going to play')
+			game_state = GAME_STATES.PLAY
+			unpause_game.emit
 		elif game_state == GAME_STATES.PLAY:
-			_pause_game()
+			print('going to pause')
+			game_state = GAME_STATES.PAUSED
+			pause_game.emit
+			
 
 
 func update_animations(input_axis):
@@ -119,33 +128,14 @@ func update_animations(input_axis):
 func start():
 	position = start_point.position
 	show()
-	_unpause_game()
-	$CollisionShape2D.disabled = false
-
-func _pause_game() -> void:
-	game_state = GAME_STATES.PAUSED
-	get_tree().paused = true
-	$Camera2D/resume_button.visible = true
-	$Camera2D/quit_button.visible = true
-	$Camera2D/restart_button.visible = true
-func _unpause_game() -> void:
-	get_tree().paused = false
 	game_state = GAME_STATES.PLAY
-	$Camera2D/resume_button.visible = false
-	$Camera2D/quit_button.visible = false
-	$Camera2D/restart_button.visible = false
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
-
-
-func _on_resume_button_pressed() -> void:
-	print('here')
-	_unpause_game()
-
-
-func _on_restart_button_pressed() -> void:
-	new_game.emit()
+	unpause_game.emit()
+	$CollisionShape2D.disabled = false
 
 
 func _on_new_game() -> void:
 	start()
+
+
+func _on_main_main_menu() -> void:
+	pass # Replace with function body.

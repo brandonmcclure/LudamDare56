@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpal3o6ywkx3k"]
+
+[ext_resource type="PackedScene" uid="uid://bqmd0uafqlxgp" path="res://mob.tscn" id="1_6dtp2"]
+[ext_resource type="Texture2D" uid="uid://dw4jkivkgq8wu" path="res://art/enemyFlyingAlt_1.png" id="2_n6bcu"]
+[ext_resource type="Script" path="res://mob.gd" id="3_48elo"]
+[ext_resource type="Texture2D" uid="uid://d2fx11clx3lfd" path="res://art/enemyFlyingAlt_2.png" id="3_qajsx"]
+[ext_resource type="Texture2D" uid="uid://bj82uc5cpv1rn" path="res://art/enemySwimming_1.png" id="4_3y7pg"]
+[ext_resource type="Texture2D" uid="uid://djetap0ws3jj5" path="res://art/enemySwimming_2.png" id="5_defp1"]
+[ext_resource type="Texture2D" uid="uid://26xmk1dyere7" path="res://art/enemyWalking_1.png" id="6_sptoy"]
+[ext_resource type="Texture2D" uid="uid://bsafpeejo1dpk" path="res://art/enemyWalking_2.png" id="7_plfc3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dhtd1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_n6bcu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qajsx")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3y7pg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_defp1")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sptoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_plfc3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bix71"]
+radius = 4.5977
+height = 39.2405
+
+[node name="TinyCreature" type="Node2D"]
+
+[node name="Mob" parent="." instance=ExtResource("1_6dtp2")]
+script = ExtResource("3_48elo")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Mob"]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_dhtd1")
+animation = &"fly"
+
+[node name="VisibleOnScreenEnabler2D2" type="VisibleOnScreenEnabler2D" parent="Mob"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Mob"]
+rotation = 1.5708
+scale = Vector2(3.48, 2.62102)
+shape = SubResource("CapsuleShape2D_bix71")
+
+[node name="debug_label2" type="Label" parent="Mob"]
+offset_left = 88.0
+offset_top = -114.0
+offset_right = 298.0
+offset_bottom = 118.0
+metadata/_edit_use_anchors_ = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct03wcfuwojgw"]
+[gd_scene load_steps=10 format=3 uid="uid://ct03wcfuwojgw"]
 
 [ext_resource type="Script" path="res://big_guy.gd" id="1_04cpm"]
 [ext_resource type="Texture2D" uid="uid://c7ph4a6sulxan" path="res://art/the_big_guy.png" id="2_h2slh"]
 [ext_resource type="Texture2D" uid="uid://dj43hfsi4g8ds" path="res://art/the_big_guy_mouth_opening.png" id="3_jmanl"]
 [ext_resource type="Texture2D" uid="uid://dk81sryvecwny" path="res://art/the_big_guy_mouth_open.png" id="4_sya5e"]
 [ext_resource type="Texture2D" uid="uid://civm2u2f3dfhg" path="res://art/background.png" id="6_qudyf"]
+[ext_resource type="AudioStream" uid="uid://cnomk0mioh6fy" path="res://music/2_big_guy_damage.ogg" id="7_nrw5l"]
 [ext_resource type="Texture2D" uid="uid://cs02n7py0qhyi" path="res://art/the_big_guy_flipper.png" id="7_sivq7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_on37m"]
@@ -71,8 +72,8 @@ limit_begin = Vector2(-1000, -1000)
 limit_end = Vector2(1000, 1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(320, -313)
-scale = Vector2(2.76, 3.21067)
+position = Vector2(-212.5, -437.812)
+scale = Vector2(18.3542, 16.2502)
 texture = ExtResource("6_qudyf")
 
 [node name="anim_timer" type="Timer" parent="."]
@@ -111,5 +112,10 @@ position = Vector2(-1192, 256)
 scale = Vector2(0.606667, 1.18267)
 shape = SubResource("CapsuleShape2D_pep7o")
 
-[connection signal="body_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="audio_on_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_nrw5l")
+volume_db = -0.865
+bus = &"Sound Effects"
+
+[connection signal="area_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="anim_timer" to="." method="_on_anim_timer_timeout"]

@@ -22,11 +22,53 @@ func update_score(score):
 func _on_start_button_pressed():
 	$StartButton.hide()
 	$Message.hide()
+	$VolumeSlider.hide()
+	$VolumeLabel.hide()
+	$QuitButton.hide()
+	get_tree().paused = false
 	start_game.emit()
 
 func _on_message_timer_timeout():
 	$Message.hide()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Message.text = "Ludam Dare 56 - Tiny Creatures"
+	$Message.text = "Ludam Dare 56 - Tiny Creatures. Click to shoot the walrus"
 	pass # Replace with function body.
+
+
+func _on_big_guy_on_dead() -> void:
+	$Message.text = "You defeated the big creature!"
+	$Message.show()
+	$QuitButton.show()
+	$VolumeSlider.show()
+	$VolumeLabel.show()
+	$StartButton.show()
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_player_pause_game() -> void:
+	print('why no pause here?')
+	$Message.show()
+	$QuitButton.show()
+	$VolumeSlider.show()
+	$VolumeLabel.show()
+	$StartButton.show()
+
+
+func _on_player_unpause_game() -> void:
+	$StartButton.hide()
+	$Message.hide()
+	$VolumeSlider.hide()
+	$VolumeLabel.hide()
+	$QuitButton.hide()
+
+
+func _on_main_main_menu() -> void:
+	$Message.show()
+	$QuitButton.show()
+	$VolumeSlider.show()
+	$VolumeLabel.show()
+	$StartButton.show()
