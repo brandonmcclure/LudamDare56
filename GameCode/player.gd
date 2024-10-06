@@ -101,7 +101,12 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				var b = projectile.instantiate()
-				b.transform = $projectile_source.transform
+				var mouse_position = get_global_mouse_position()
+				var global_position = $projectile_source.get_global_transform().origin
+				var direction = (mouse_position - global_position).normalized()
+				print(global_position)
+				b.position = global_position
+				b.rotation = direction.angle()
 				owner.add_child(b)
 				
 	if Input.is_action_just_pressed("ui_menu") or Input.is_action_just_pressed("menu"):

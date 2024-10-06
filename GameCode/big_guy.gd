@@ -40,7 +40,6 @@ func _on_anim_timer_timeout() -> void:
 		animation_controller.frame = 0
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	print('gehrh')
-	print(body)
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print('attack!')
 	$AnimatedSprite2D/health_bar.value -= 10
