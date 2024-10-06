@@ -1,6 +1,6 @@
 extends Node
 
-var debug = true
+var debug = false
 var is_invincible = true
 var is_attackphase = false
 signal on_dead
